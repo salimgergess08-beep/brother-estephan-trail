@@ -8,13 +8,7 @@ out.mkdir(exist_ok=True)
 (out / 'assets').mkdir(exist_ok=True)
 base = 'https://www.bdl.gov.lb/'
 notes = base + 'CB%20Com/Banknotes%20%26%20Coins/Lebanese%20BankNotes/Banknotes/'
-urls = [
- 'https://upload.wikimedia.org/wikipedia/commons/d/da/50-Livre-Lebanon-1939.jpg',
- 'https://upload.wikimedia.org/wikipedia/commons/c/cb/1-Livre-Lebanon-1964-July.jpg',
- notes + '1000LBP_B_1992_R.jpg', notes + '1000LBP_B_2008_R.jpg',
- base + 'CB%20Com/Pre-Configuration/Banknotes%20Denominations/BN_5000LBP_THUMB.jpg',
- base + 'CB%20Com/Pre-Configuration/Banknotes%20Denominations/BN_100000LBP_THUMB.jpg'
-]
+urls = ['https://upload.wikimedia.org/wikipedia/commons/e/e7/25-Livres-Lebanon-1974.jpg', 'https://upload.wikimedia.org/wikipedia/commons/9/92/50-Livres-Lebanon-1974.jpg', 'https://www.bdl.gov.lb/CB%20Com/Banknotes%20%26%20Coins/Lebanese%20BankNotes/Banknotes/1000LBP_B_2008_R.jpg', 'https://en.numista.com/catalogue/photos/liban/6450aa5c5969b8.92074696-original.jpg', 'https://en.numista.com/catalogue/photos/liban/644fffd884dfd3.00089957-original.jpg', 'https://en.numista.com/catalogue/photos/liban/6450abf054b461.43796961-original.jpg', 'https://en.numista.com/catalogue/photos/liban/64500787b88560.10183199-original.jpg', 'https://en.numista.com/catalogue/photos/liban/65a6c628bec293.56046840-original.jpg']
 def download(pair):
  i, url = pair
  try:
@@ -40,4 +34,4 @@ for url, local in mapping.items():
  html = html.replace(url, local)
 (out / 'index.html').write_text(html)
 (out / 'assets.js').write_text('window.LOCAL_ASSETS=' + json.dumps(mapping) + ';')
-print(f'Build complete: {len(mapping)}/6 images cached; remaining images use their original source URLs.')
+print(f'Build complete: {len(mapping)}/{len(urls)} images cached; remaining images use their original source URLs.')
