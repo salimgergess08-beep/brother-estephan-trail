@@ -127,6 +127,25 @@ if ('IntersectionObserver' in window) {
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
 }
 
+/* ---------- Trail work tabs ---------- */
+const tabs = [...document.querySelectorAll('.work-tabs [role="tab"]')];
+function selectTab(tab, focus) {
+  tabs.forEach(other => {
+    const selected = other === tab;
+    other.setAttribute('aria-selected', String(selected));
+    other.tabIndex = selected ? 0 : -1;
+    document.getElementById(other.getAttribute('aria-controls')).hidden = !selected;
+  });
+  if (focus) tab.focus();
+}
+tabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => selectTab(tab));
+  tab.addEventListener('keydown', event => {
+    const step = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+    if (step) { event.preventDefault(); selectTab(tabs[(i + step + tabs.length) % tabs.length], true); }
+  });
+});
+
 /* ---------- Lightbox ---------- */
 const lightbox = document.querySelector('#lightbox');
 document.querySelectorAll('[data-full-image]').forEach(button => button.addEventListener('click', () => {
